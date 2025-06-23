@@ -1,4 +1,6 @@
 name: action-test
+permissions:
+  contents: read
 on:
   workflow_dispatch:
     inputs:
