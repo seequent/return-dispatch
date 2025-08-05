@@ -24166,19 +24166,6 @@ async function fetchWorkflowRunIds(workflowId, branch, startTimeISO) {
   try {
     const useBranchFilter = !branch.isTag && branch.branchName !== void 0 && branch.branchName !== "";
     const createdFrom = `>=${startTimeISO}`;
-<<<<<<< HEAD
-    const response = await octokit.rest.actions.listWorkflowRuns({
-      owner: config.owner,
-      repo: config.repo,
-      workflow_id: workflowId,
-      created: createdFrom,
-      event: "workflow_dispatch",
-      ...useBranchFilter ? {
-        branch: branch.branchName,
-        per_page: 10
-      } : {
-        per_page: 20
-=======
     const response = await withEtag(
       "listWorkflowRuns",
       {
@@ -24196,7 +24183,6 @@ async function fetchWorkflowRunIds(workflowId, branch, startTimeISO) {
       },
       async (params) => {
         return await octokit.rest.actions.listWorkflowRuns(params);
->>>>>>> dac7338c24ea3a5c470ba13f9c3425537afa3439
       }
     );
     if (response.status !== 200) {

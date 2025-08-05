@@ -574,8 +574,6 @@ describe("API", () => {
           Branch Filter: false (/refs/cake)
           Workflow ID: 0
           Created: >=2025-06-17T22:24:23.238Z
-<<<<<<< HEAD
-=======
           Runs Fetched: []"
       `,
       );
@@ -688,7 +686,6 @@ describe("API", () => {
           Branch Filter: true (feature_branch)
           Workflow ID: 0
           Created: >=2025-06-17T22:24:23.238Z
->>>>>>> dac7338c24ea3a5c470ba13f9c3425537afa3439
           Runs Fetched: []"
       `,
       );
