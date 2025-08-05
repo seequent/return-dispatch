@@ -2,6 +2,7 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 
 import { type ActionConfig, getConfig } from "./action.ts";
+import { withEtag } from "./etags.js";
 import type { Result } from "./types.ts";
 import { sleep, type BranchNameResult } from "./utils.ts";
 
@@ -168,6 +169,7 @@ export async function fetchWorkflowRunIds(
 
     const createdFrom = `>=${startTimeISO}`;
 
+<<<<<<< HEAD
     // https://docs.github.com/en/rest/actions/workflow-runs#list-workflow-runs-for-a-repository
     const response = await octokit.rest.actions.listWorkflowRuns({
       owner: config.owner,
@@ -184,8 +186,31 @@ export async function fetchWorkflowRunIds(
             per_page: 20,
           }),
     });
+=======
+    const response = await withEtag(
+      "listWorkflowRuns",
+      {
+        owner: config.owner,
+        repo: config.repo,
+        workflow_id: workflowId,
+        created: createdFrom,
+        event: "workflow_dispatch",
+        ...(useBranchFilter
+          ? {
+              branch: branch.branchName,
+              per_page: 10,
+            }
+          : {
+              per_page: 20,
+            }),
+      },
+      async (params) => {
+        // https://docs.github.com/en/rest/actions/workflow-runs#list-workflow-runs-for-a-repository
+        return await octokit.rest.actions.listWorkflowRuns(params);
+      },
+    );
+>>>>>>> dac7338c24ea3a5c470ba13f9c3425537afa3439
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (response.status !== 200) {
       throw new Error(
         `Failed to fetch Workflow runs, expected 200 but received ${response.status}`,
@@ -224,15 +249,20 @@ export async function fetchWorkflowRunJobSteps(
   runId: number,
 ): Promise<string[]> {
   try {
-    // https://docs.github.com/en/rest/actions/workflow-jobs#list-jobs-for-a-workflow-run
-    const response = await octokit.rest.actions.listJobsForWorkflowRun({
-      owner: config.owner,
-      repo: config.repo,
-      run_id: runId,
-      filter: "latest",
-    });
+    const response = await withEtag(
+      "listJobsForWorkflowRun",
+      {
+        owner: config.owner,
+        repo: config.repo,
+        run_id: runId,
+        filter: "latest" as const,
+      },
+      async (params) => {
+        // https://docs.github.com/en/rest/actions/workflow-jobs#list-jobs-for-a-workflow-run
+        return await octokit.rest.actions.listJobsForWorkflowRun(params);
+      },
+    );
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (response.status !== 200) {
       throw new Error(
         `Failed to fetch Workflow Run Jobs, expected 200 but received ${response.status}`,
