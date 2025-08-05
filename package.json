@@ -1,10 +1,6 @@
 {
   "name": "return-dispatch",
-<<<<<<< HEAD
-  "version": "2.0.5",
-=======
   "version": "2.1.0",
->>>>>>> dac7338c24ea3a5c470ba13f9c3425537afa3439
   "private": true,
   "description": "Dispatch an action and output the run ID.",
   "main": "lib/main.js",
