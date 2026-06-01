@@ -19,10 +19,10 @@ jobs:
         id: return_dispatch
         uses: ./
         with:
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ env.TARGET_BRANCH }}
           repo: return-dispatch
-          owner: codex-
+          owner: seequent
           workflow: dispatch.yml
           workflow_inputs: '{"cake":"delicious"}'
           workflow_timeout_seconds: 30
