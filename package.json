@@ -1,6 +1,6 @@
 {
   "name": "return-dispatch",
-  "version": "3.0.2",
+  "version": "4.0.1",
   "private": true,
   "description": "Dispatch an action and output the run ID.",
   "main": "lib/main.js",
@@ -9,14 +9,13 @@
     "build": "pnpm run build:types && pnpm run build:bundle",
     "build:bundle": "node ./esbuild.config.mjs",
     "build:types": "tsc",
-    "format:check": "prettier --check **/*.ts",
-    "format": "pnpm run format:check --write",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
     "lint": "eslint .",
     "lint:fix": "pnpm run lint --fix",
     "release": "release-it",
     "test": "vitest",
-    "test:coverage": "vitest --coverage",
-    "preinstall": "npx npm-force-resolutions"
+    "test:coverage": "vitest --coverage"
   },
   "repository": {
     "type": "git",
@@ -34,24 +33,23 @@
     "@actions/github": "9.1.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@octokit/types": "^16.0.0",
-    "@opentf/std": "^0.13.0",
-    "@total-typescript/ts-reset": "^0.6.1",
-    "@types/node": "~20.19.25",
-    "@typescript-eslint/eslint-plugin": "^8.46.4",
-    "@typescript-eslint/parser": "^8.46.4",
-    "@vitest/coverage-v8": "^4.0.9",
-    "chalk": "^5.6.2",
-    "changelogithub": "^13.16.1",
-    "esbuild": "^0.27.0",
-    "eslint": "^9.39.1",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-import-x": "^4.16.1",
-    "prettier": "3.6.2",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.4",
-    "vitest": "^4.0.9"
+    "@eslint/js": "10.0.1",
+    "@total-typescript/ts-reset": "0.6.1",
+    "@tsconfig/node24": "24.0.4",
+    "@types/node": "24.13.3",
+    "@typescript-eslint/eslint-plugin": "8.65.0",
+    "@typescript-eslint/parser": "8.65.0",
+    "@vitest/coverage-v8": "4.1.10",
+    "chalk": "6.0.0",
+    "changelogithub": "15.0.4",
+    "esbuild": "0.28.1",
+    "eslint": "10.8.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-import-resolver-typescript": "4.4.5",
+    "eslint-plugin-import-x": "4.17.1",
+    "prettier": "3.9.6",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.65.0",
+    "vitest": "4.1.10"
   }
 }
